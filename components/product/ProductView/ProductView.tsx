@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useCallback } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
@@ -6,7 +6,8 @@ import { NextSeo } from 'next-seo'
 import s from './ProductView.module.css'
 import { useUI } from '@components/ui/context'
 import { Swatch, ProductSlider } from '@components/product'
-import { Button, Container, Text } from '@components/ui'
+import { Button, Container, Text, Radio } from '@components/ui'
+import { PaymentList } from '@components/common'
 
 import usePrice from '@framework/use-price'
 import useAddItem from '@framework/cart/use-add-item'
@@ -26,11 +27,6 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
-  const { price } = usePrice({
-    amount: product.prices?.price?.value,
-    baseAmount: product.prices?.retailPrice?.value,
-    currencyCode: product.prices?.price?.currencyCode!,
-  })
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
   const [loading, setLoading] = useState(false)
@@ -38,8 +34,14 @@ const ProductView: FC<Props> = ({ product }) => {
     size: null,
     color: null,
   })
+  const pointCashRatio = 10
+  const defaultPrice = product!.prices!.price!.value
+  const priceWithPoints = product!.prices!.retailPrice
+    ? product!.prices!.retailPrice!.value
+    : null
+  const points = (defaultPrice - priceWithPoints) * pointCashRatio
+  const fullInPoints = defaultPrice * pointCashRatio
   const variant = getCurrentVariant(product, choices)
-
   const addToCart = async () => {
     setLoading(true)
     try {
@@ -78,7 +80,7 @@ const ProductView: FC<Props> = ({ product }) => {
           <div className={s.nameBox}>
             <h1 className={s.name}>{product.name}</h1>
             <div className={s.price}>
-              {price}
+              {defaultPrice}
               {` `}
               {product.prices?.price.currencyCode}
             </div>
@@ -139,9 +141,14 @@ const ProductView: FC<Props> = ({ product }) => {
             </div>
           </section>
           <div>
+            <PaymentList
+              price={defaultPrice}
+              priceWithPoints={priceWithPoints}
+              fullInPoints={fullInPoints}
+            />
             <Button
               aria-label="Add to Cart"
-              type="button"
+              type="reset"
               className={s.button}
               onClick={addToCart}
               loading={loading}
