@@ -10,13 +10,16 @@ const defaultOpts = {
   method: 'POST',
 }
 
-export type AddItemInput = ItemBody
+export type AddItemInput = ItemBody & {
+  paymentType?: string
+}
 
 export const fetcher: HookFetcher<Cart, AddItemBody> = (
   options,
   { item },
   fetch
 ) => {
+  console.log('fetcher item', item)
   if (
     item.quantity &&
     (!Number.isInteger(item.quantity) || item.quantity! < 1)

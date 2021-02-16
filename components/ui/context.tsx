@@ -10,6 +10,15 @@ export interface State {
   toastText: string
 }
 
+export interface CartState {
+  items: [
+    {
+      productId: number
+      type: string
+    }
+  ]
+}
+
 const initialState = {
   displaySidebar: false,
   displayDropdown: false,
@@ -55,12 +64,12 @@ type Action =
   | {
       type: 'SET_USER_AVATAR'
       value: string
-  }
+    }
 
 type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW' | 'FORGOT_VIEW'
 type ToastText = string
 
-export const UIContext = React.createContext<State | any>(initialState)
+export const UIContext = React.createContext<CartState | any>(initialState)
 
 UIContext.displayName = 'UIContext'
 
@@ -135,6 +144,43 @@ function uiReducer(state: State, action: Action) {
     }
   }
 }
+const cartInitialState = {
+  items: [],
+}
+
+const cartReducer = (state: State, action: Action) => {
+  console.log(action)
+  switch (action.type) {
+    case 'ADD_ITEMS': {
+      const { data } = action
+      return {
+        ...state,
+        items: [...state.items, ...data],
+      }
+    }
+
+    default: {
+      return state
+    }
+  }
+}
+
+export const CartContext = React.createContext<State | any>(cartInitialState)
+
+export const CartProvider: FC = (props) => {
+  const [state, dispatch] = React.useReducer(cartReducer, cartInitialState)
+  const addItems = (data) => dispatch({ type: 'ADD_ITEMS', data })
+  const removeItem = (data) => dispatch({ type: 'REMOVE_ITEM', data })
+  const value = useMemo(
+    () => ({
+      ...state,
+      addItems,
+      removeItem,
+    }),
+    [state]
+  )
+  return <CartContext.Provider value={value} {...props} />
+}
 
 export const UIProvider: FC = (props) => {
   const [state, dispatch] = React.useReducer(uiReducer, initialState)
@@ -157,7 +203,8 @@ export const UIProvider: FC = (props) => {
   const openToast = () => dispatch({ type: 'OPEN_TOAST' })
   const closeToast = () => dispatch({ type: 'CLOSE_TOAST' })
 
-  const setUserAvatar = (value: string) => dispatch({ type: 'SET_USER_AVATAR', value })
+  const setUserAvatar = (value: string) =>
+    dispatch({ type: 'SET_USER_AVATAR', value })
 
   const setModalView = (view: MODAL_VIEWS) =>
     dispatch({ type: 'SET_MODAL_VIEW', view })
@@ -176,7 +223,7 @@ export const UIProvider: FC = (props) => {
       setModalView,
       openToast,
       closeToast,
-      setUserAvatar
+      setUserAvatar,
     }),
     [state]
   )
@@ -192,8 +239,18 @@ export const useUI = () => {
   return context
 }
 
+export const useCart = () => {
+  const context = React.useContext(CartContext)
+  if (context === undefined) {
+    throw new Error(`useCart must be used within a CartProvider`)
+  }
+  return context
+}
+
 export const ManagedUIContext: FC = ({ children }) => (
   <UIProvider>
-    <ThemeProvider>{children}</ThemeProvider>
+    <CartProvider>
+      <ThemeProvider>{children}</ThemeProvider>
+    </CartProvider>
   </UIProvider>
 )

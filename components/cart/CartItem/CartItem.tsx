@@ -1,7 +1,8 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState, FC } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Points } from '@components/common'
 import { Trash, Plus, Minus } from '@components/icons'
 import usePrice from '@framework/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
@@ -9,19 +10,19 @@ import useRemoveItem from '@framework/cart/use-remove-item'
 import s from './CartItem.module.css'
 
 type ItemOption = {
-  name: string,
-  nameId: number,
-  value: string,
+  name: string
+  nameId: number
+  value: string
   valueId: number
 }
 
-const CartItem = ({
-  item,
-  currencyCode,
-}: {
+type Props = {
   item: any
   currencyCode: string
-}) => {
+  points?: number
+}
+
+const CartItem: FC<Props> = ({ item, currencyCode, points }) => {
   const { price } = usePrice({
     amount: item.extended_sale_price,
     baseAmount: item.extended_list_price,
@@ -101,11 +102,15 @@ const CartItem = ({
         </Link>
         {item.options && item.options.length > 0 ? (
           <div className="">
-            {item.options.map((option:ItemOption, i: number) =>
-              <span key={`${item.id}-${option.name}`} className="text-sm font-semibold text-accents-7">
-                {option.value}{ i === item.options.length -1 ? "" : ", " }
+            {item.options.map((option: ItemOption, i: number) => (
+              <span
+                key={`${item.id}-${option.name}`}
+                className="text-sm font-semibold text-accents-7"
+              >
+                {option.value}
+                {i === item.options.length - 1 ? '' : ', '}
               </span>
-            )}
+            ))}
           </div>
         ) : null}
         <div className="flex items-center mt-3">
@@ -129,7 +134,10 @@ const CartItem = ({
         </div>
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
-        <span>{price}</span>
+        <span>
+          {price}
+          {points && <Points points={quantity * points} />}
+        </span>
         <button className="flex justify-end" onClick={handleRemove}>
           <Trash />
         </button>

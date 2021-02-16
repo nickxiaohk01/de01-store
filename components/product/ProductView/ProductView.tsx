@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 
 import s from './ProductView.module.css'
-import { useUI } from '@components/ui/context'
+import { useUI, useCart } from '@components/ui/context'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text, Radio } from '@components/ui'
 import { PaymentList } from '@components/common'
@@ -28,11 +28,14 @@ interface Props {
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
   const { openSidebar } = useUI()
+  const { addItems: addItemsToCart } = useCart()
   const options = getProductOptions(product)
   const [loading, setLoading] = useState(false)
+  const PAYMENT_CASH = 'PAYMENT_CASH'
   const [choices, setChoices] = useState<SelectedOptions>({
     size: null,
     color: null,
+    paymentType: PAYMENT_CASH,
   })
   const pointCashRatio = 10
   const defaultPrice = product!.prices!.price!.value
@@ -49,6 +52,12 @@ const ProductView: FC<Props> = ({ product }) => {
         productId: product.entityId,
         variantId: variant?.node.entityId!,
       })
+      addItemsToCart([
+        {
+          productId: product.entityId,
+          type: choices,
+        },
+      ])
       openSidebar()
       setLoading(false)
     } catch (err) {
@@ -145,6 +154,8 @@ const ProductView: FC<Props> = ({ product }) => {
               price={defaultPrice}
               priceWithPoints={priceWithPoints}
               fullInPoints={fullInPoints}
+              onSelected={setChoices}
+              defaultOption={choices.paymentType}
             />
             <Button
               aria-label="Add to Cart"

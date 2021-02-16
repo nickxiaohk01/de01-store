@@ -9,18 +9,32 @@ export interface Props {
   price: number
   priceWithPoints?: number
   fullInPoints?: number
+  onSelected: Function
+  defaultOption: string
 }
 
 const PaymentList: FC<Props> = (props) => {
-  const { price, priceWithPoints, fullInPoints } = props
+  const {
+    price,
+    priceWithPoints,
+    fullInPoints,
+    onSelected,
+    defaultOption,
+  } = props
   const PAYMENT_CASH = 'PAYMENT_CASH'
   const PAYMENT_CASH_POINT = 'PAYMENT_CASH_POINT'
   const PAYMENT_POINT = 'PAYMENT_POINT'
-  const [option, setOption] = useState(PAYMENT_CASH)
+  const [option, setOption] = useState(defaultOption)
 
   const onSelectedHandler = useCallback(
     (paymentType) => () => {
       setOption(paymentType)
+      onSelected((choies) => {
+        return {
+          ...choies,
+          paymentType,
+        }
+      })
     },
     [option]
   )

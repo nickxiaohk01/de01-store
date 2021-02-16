@@ -1,3 +1,4 @@
 .pointsText {
   color: #0033e8;
+  user-select: none;
 }

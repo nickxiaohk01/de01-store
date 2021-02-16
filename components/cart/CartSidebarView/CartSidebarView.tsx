@@ -3,7 +3,7 @@ import cn from 'classnames'
 import { UserNav } from '@components/common'
 import { Button } from '@components/ui'
 import { Bag, Cross, Check } from '@components/icons'
-import { useUI } from '@components/ui/context'
+import { useUI, useCart as useCartFE } from '@components/ui/context'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/use-price'
 import CartItem from '../CartItem'
@@ -11,6 +11,9 @@ import s from './CartSidebarView.module.css'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
+  const { items: cartItems } = useCartFE()
+  console.log('CartSidebarView', cartItems)
+  console.log('data', data)
   const { data, isEmpty } = useCart()
   const { price: subTotal } = usePrice(
     data && {
@@ -94,13 +97,17 @@ const CartSidebarView: FC = () => {
               My Cart
             </h2>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
-              {items.map((item: any) => (
-                <CartItem
-                  key={item.id}
-                  item={item}
-                  currencyCode={data?.currency.code!}
-                />
-              ))}
+              {items.map((item: any) => {
+                console.log(item.prices)
+                return (
+                  <CartItem
+                    key={item.id}
+                    item={item}
+                    currencyCode={data?.currency.code!}
+                    points={100}
+                  />
+                )
+              })}
             </ul>
           </div>
 
