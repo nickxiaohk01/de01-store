@@ -13,6 +13,12 @@ export interface Props {
   defaultOption: string
 }
 
+type ChoiceProps = {
+  size: string
+  color: string
+  paymentType: string
+}
+
 const PaymentList: FC<Props> = (props) => {
   const {
     price,
@@ -29,12 +35,14 @@ const PaymentList: FC<Props> = (props) => {
   const onSelectedHandler = useCallback(
     (paymentType) => () => {
       setOption(paymentType)
-      onSelected((choies) => {
-        return {
-          ...choies,
-          paymentType,
+      onSelected(
+        (choies: ChoiceProps): ChoiceProps => {
+          return {
+            ...choies,
+            paymentType,
+          }
         }
-      })
+      )
     },
     [option]
   )

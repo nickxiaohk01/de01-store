@@ -52,12 +52,13 @@ const ProductView: FC<Props> = ({ product }) => {
         productId: product.entityId,
         variantId: variant?.node.entityId!,
       })
-      addItemsToCart([
-        {
-          productId: product.entityId,
-          type: choices,
-        },
-      ])
+      addItemsToCart &&
+        addItemsToCart([
+          {
+            productId: product.entityId,
+            type: choices,
+          },
+        ])
       openSidebar()
       setLoading(false)
     } catch (err) {

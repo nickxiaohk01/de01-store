@@ -11,12 +11,11 @@ export interface State {
 }
 
 export interface CartState {
-  items: [
-    {
-      productId: number
-      type: string
-    }
-  ]
+  items?: {
+    productId: number
+    type: string
+  }[]
+  addItems?: Function
 }
 
 const initialState = {
@@ -66,10 +65,18 @@ type Action =
       value: string
     }
 
+type CartAction = {
+  type: 'ADD_ITEMS'
+  data: {
+    productId: number
+    type: string
+  }[]
+}
+
 type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW' | 'FORGOT_VIEW'
 type ToastText = string
 
-export const UIContext = React.createContext<CartState | any>(initialState)
+export const UIContext = React.createContext<State | any>(initialState)
 
 UIContext.displayName = 'UIContext'
 
@@ -148,14 +155,20 @@ const cartInitialState = {
   items: [],
 }
 
-const cartReducer = (state: State, action: Action) => {
-  console.log(action)
+const cartReducer = (state: CartState, action: CartAction) => {
   switch (action.type) {
     case 'ADD_ITEMS': {
       const { data } = action
-      return {
-        ...state,
-        items: [...state.items, ...data],
+      if (state.items) {
+        return {
+          ...state,
+          items: [...state.items, ...data],
+        }
+      } else {
+        return {
+          ...state,
+          items: [...data],
+        }
       }
     }
 
@@ -165,17 +178,26 @@ const cartReducer = (state: State, action: Action) => {
   }
 }
 
-export const CartContext = React.createContext<State | any>(cartInitialState)
+export const CartContext = React.createContext<CartState>(cartInitialState)
 
 export const CartProvider: FC = (props) => {
   const [state, dispatch] = React.useReducer(cartReducer, cartInitialState)
-  const addItems = (data) => dispatch({ type: 'ADD_ITEMS', data })
-  const removeItem = (data) => dispatch({ type: 'REMOVE_ITEM', data })
+  const addItems = (
+    data: {
+      productId: number
+      type: string
+    }[]
+  ) => dispatch({ type: 'ADD_ITEMS', data })
+  // const removeItem = (
+  //   data: {
+  //     productId: number
+  //     type: string
+  //   }[]
+  // ) => dispatch({ type: 'REMOVE_ITEM', data })
   const value = useMemo(
     () => ({
       ...state,
       addItems,
-      removeItem,
     }),
     [state]
   )

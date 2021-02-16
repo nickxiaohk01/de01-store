@@ -12,8 +12,6 @@ import s from './CartSidebarView.module.css'
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
   const { items: cartItems } = useCartFE()
-  console.log('CartSidebarView', cartItems)
-  console.log('data', data)
   const { data, isEmpty } = useCart()
   const { price: subTotal } = usePrice(
     data && {
