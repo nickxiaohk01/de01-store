@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 
 import s from './ProductView.module.css'
-import { useUI, useCart } from '@components/ui/context'
+import { useUI, useCart } from '@context'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text, Radio } from '@components/ui'
 import { PaymentList } from '@components/common'
@@ -53,12 +53,14 @@ const ProductView: FC<Props> = ({ product }) => {
         variantId: variant?.node.entityId!,
       })
       addItemsToCart &&
-        addItemsToCart([
-          {
-            productId: product.entityId,
-            type: choices,
-          },
-        ])
+        addItemsToCart({
+          name: product.name,
+          productId: product.entityId,
+          type: choices,
+          price: defaultPrice,
+          imageUrl: product.images.edges[0].node.urlOriginal,
+          amount: 1,
+        })
       openSidebar()
       setLoading(false)
     } catch (err) {

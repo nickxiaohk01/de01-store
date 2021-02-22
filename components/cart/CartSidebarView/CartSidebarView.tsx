@@ -1,9 +1,10 @@
 import { FC } from 'react'
 import cn from 'classnames'
+import Link from 'next/link'
 import { UserNav } from '@components/common'
-import { Button } from '@components/ui'
+import { ButtonLink } from '@components/ui'
 import { Bag, Cross, Check } from '@components/icons'
-import { useUI, useCart as useCartFE } from '@components/ui/context'
+import { useUI, useCart as useCartFE } from '@context'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/use-price'
 import CartItem from '../CartItem'
@@ -130,9 +131,9 @@ const CartSidebarView: FC = () => {
                 <span>{total}</span>
               </div>
             </div>
-            <Button href="/checkout" Component="a" width="100%">
+            <ButtonLink href="/checkout" width="100%">
               Proceed to Checkout
-            </Button>
+            </ButtonLink>
           </div>
         </>
       )}

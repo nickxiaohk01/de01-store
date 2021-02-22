@@ -6,7 +6,7 @@ import useRemoveItem from '@framework/wishlist/use-remove-item'
 import useWishlist from '@framework/wishlist/use-wishlist'
 import useCustomer from '@framework/use-customer'
 import { Heart } from '@components/icons'
-import { useUI } from '@components/ui/context'
+import { useUI } from '@context'
 
 type Props = {
   productId: number
