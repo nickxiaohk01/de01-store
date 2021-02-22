@@ -23,7 +23,11 @@
       "@commerce/*": ["framework/commerce/*"],
       "@commerce": ["framework/commerce"],
       "@framework/*": ["framework/bigcommerce/*"],
-      "@framework": ["framework/bigcommerce"]
+      "@framework": ["framework/bigcommerce"],
+      "@mockAPI": ["mockAPI"],
+      "@mockAPI/*": ["mockAPI/*"],
+      "@context": ["context"],
+      "@context/*": ["context/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],

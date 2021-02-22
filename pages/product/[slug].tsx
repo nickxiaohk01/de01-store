@@ -8,9 +8,8 @@ import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
 
 // Data
-
 import { getConfig } from '@framework/api'
-import getProduct from '@framework/api/operations/get-product'
+import { getProduct } from '@mockAPI/getProduct'
 import getAllPages from '@framework/api/operations/get-all-pages'
 import getAllProductPaths from '@framework/api/operations/get-all-product-paths'
 
@@ -20,14 +19,8 @@ export async function getStaticProps({
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
   const config = getConfig({ locale })
-
   const { pages } = await getAllPages({ config, preview })
-  const { product } = await getProduct({
-    variables: { slug: params!.slug },
-    config,
-    preview,
-  })
-
+  const { product } = await getProduct({ slug: params!.slug })
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
   }

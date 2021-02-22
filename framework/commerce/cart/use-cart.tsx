@@ -19,7 +19,6 @@ export default function useCart<Result>(
   swrOptions?: SwrOptions<Result, CartInput>
 ) {
   const { cartCookie } = useCommerce()
-  console.log('cartCookie', cartCookie)
   const fetcher: typeof fetcherFn = (options, input, fetch) => {
     input.cartId = Cookies.get(cartCookie)
     console.log('input.cartId', input.cartId)

@@ -346,7 +346,7 @@ export default function Search({
             </Grid>
           ) : (
             <Grid layout="normal">
-              {rangeMap(12, (i) => (
+              {rangeMap(24, (i) => (
                 <Skeleton
                   key={i}
                   className="w-full animated fadeIn"

@@ -4,11 +4,11 @@ import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero } from '@components/ui'
 import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-
 import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/api/operations/get-all-products'
 import getSiteInfo from '@framework/api/operations/get-site-info'
 import getAllPages from '@framework/api/operations/get-all-pages'
+import { getAllProductsMock } from '@mockAPI/getAllProducts'
 
 export async function getStaticProps({
   preview,
@@ -17,24 +17,17 @@ export async function getStaticProps({
   const config = getConfig({ locale })
 
   // Get Featured Products
-  const { products: featuredProducts } = await getAllProducts({
-    variables: { field: 'featuredProducts', first: 6 },
-    config,
-    preview,
+  const { products: featuredProducts } = await getAllProductsMock({
+    type: 'featuredProducts',
   })
-
   // Get Best Selling Products
-  const { products: bestSellingProducts } = await getAllProducts({
-    variables: { field: 'bestSellingProducts', first: 6 },
-    config,
-    preview,
+  const { products: bestSellingProducts } = await getAllProductsMock({
+    type: 'bestSellingProducts',
   })
 
   // Get Best Newest Products
-  const { products: newestProducts } = await getAllProducts({
-    variables: { field: 'newestProducts', first: 12 },
-    config,
-    preview,
+  const { products: newestProducts } = await getAllProductsMock({
+    type: 'newestProducts',
   })
 
   const { categories, brands } = await getSiteInfo({ config, preview })

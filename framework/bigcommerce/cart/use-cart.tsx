@@ -27,7 +27,6 @@ export function extendHook(
       revalidateOnFocus: false,
       ...swrOptions,
     })
-    console.log('useCart', response)
     // Uses a getter to only calculate the prop when required
     // response.data is also a getter and it's better to not trigger it early
     Object.defineProperty(response, 'isEmpty', {
