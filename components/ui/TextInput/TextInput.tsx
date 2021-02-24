@@ -1,8 +1,17 @@
 import React from 'react'
 import { InputContainer } from '@components/ui'
 import s from './TextInput.module.css'
+import { SiteBrandsArgs } from '../../../framework/bigcommerce/schema'
 
-export default class TextInput extends React.PureComponent {
+type Props = {
+  id: string
+  label: string
+  value: string
+  onChange: Function
+  width: string
+  optional?: boolean
+}
+export default class TextInput extends React.PureComponent<Props> {
   render() {
     return (
       <InputContainer

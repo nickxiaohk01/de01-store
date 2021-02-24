@@ -20,7 +20,7 @@ class SingleShipping extends React.PureComponent {
   render() {
     return (
       <>
-        <Address />
+        <Address name={'Shipping'} />
       </>
     )
   }

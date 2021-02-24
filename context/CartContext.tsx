@@ -1,4 +1,5 @@
 import React, { FC, useMemo } from 'react'
+import useBigComCart from '@framework/cart/use-cart'
 
 type Choices = {
   size: string
@@ -23,6 +24,16 @@ const cartInitialState = {
   points: 0,
 }
 
+const cartInit = () => {
+  const { data } = useBigComCart()
+  const cartInitialState = {
+    items: [],
+    subtotal: data ? data.cart_amount : 0,
+    points: 0,
+  }
+  return cartInitialState
+}
+
 export interface CartState {
   items?: {
     name: string
@@ -43,12 +54,26 @@ const cartReducer = (state: CartState, action: CartAction) => {
   switch (action.type) {
     case 'ADD_ITEMS': {
       const { data } = action
-      const { productId } = data
-      console.log(productId, state)
+      const { choices } = data
+      let points = state.points
+      let subtotal = state.subtotal
+
+      const PAYMENT_CASH = 'PAYMENT_CASH'
+      const PAYMENT_CASH_POINT = 'PAYMENT_CASH_POINT'
+      const PAYMENT_POINT = 'PAYMENT_POINT'
+      if (choices.paymentType == PAYMENT_CASH_POINT) {
+        subtotal = subtotal - 10 + data.price
+        points = points + 100
+      } else if (choices.paymentType == PAYMENT_POINT) {
+        points = points + data.price * 10
+      } else {
+        subtotal = subtotal + data.price
+      }
 
       return {
         ...state,
-        subtotal: state.subtotal + data.price,
+        points,
+        subtotal,
         items: [...state.items, data],
       }
     }
@@ -60,7 +85,8 @@ const cartReducer = (state: CartState, action: CartAction) => {
 }
 
 export const CartProvider: FC = (props) => {
-  const [state, dispatch] = React.useReducer(cartReducer, cartInitialState)
+  const cartInitData = cartInit()
+  const [state, dispatch] = React.useReducer(cartReducer, cartInitData)
   const addItems = (
     data: {
       productId: number
@@ -68,12 +94,6 @@ export const CartProvider: FC = (props) => {
       price: number
     }[]
   ) => dispatch({ type: 'ADD_ITEMS', data })
-  // const removeItem = (
-  //   data: {
-  //     productId: number
-  //     type: string
-  //   }[]
-  // ) => dispatch({ type: 'REMOVE_ITEM', data })
   const value = useMemo(
     () => ({
       ...state,

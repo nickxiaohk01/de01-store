@@ -27,7 +27,9 @@
       "@mockAPI": ["mockAPI"],
       "@mockAPI/*": ["mockAPI/*"],
       "@context": ["context"],
-      "@context/*": ["context/*"]
+      "@context/*": ["context/*"],
+      "@proxy": ["proxy"],
+      "@proxy/*": ["proxy/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],

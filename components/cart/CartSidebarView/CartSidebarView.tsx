@@ -1,8 +1,9 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
 import { UserNav } from '@components/common'
 import { ButtonLink } from '@components/ui'
+import { formatMoney } from 'accounting'
 import { Bag, Cross, Check } from '@components/icons'
 import { useUI, useCart as useCartFE } from '@context'
 import useCart from '@framework/cart/use-cart'
@@ -12,7 +13,7 @@ import s from './CartSidebarView.module.css'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
-  const { items: cartItems } = useCartFE()
+  const { items: cartItems, subtotal } = useCartFE()
   const { data, isEmpty } = useCart()
   const { price: subTotal } = usePrice(
     data && {
@@ -103,7 +104,6 @@ const CartSidebarView: FC = () => {
                     key={item.id}
                     item={item}
                     currencyCode={data?.currency.code!}
-                    points={100}
                   />
                 )
               })}
@@ -115,7 +115,7 @@ const CartSidebarView: FC = () => {
               <ul className="py-3">
                 <li className="flex justify-between py-1">
                   <span>Subtotal</span>
-                  <span>{subTotal}</span>
+                  <span>{formatMoney(subtotal)}</span>
                 </li>
                 <li className="flex justify-between py-1">
                   <span>Taxes</span>
@@ -128,7 +128,7 @@ const CartSidebarView: FC = () => {
               </ul>
               <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
                 <span>Total</span>
-                <span>{total}</span>
+                <span>{formatMoney(subtotal)}</span>
               </div>
             </div>
             <ButtonLink href="/checkout" width="100%">

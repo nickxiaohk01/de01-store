@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState, FC } from 'react'
+import { useCart } from '@context'
 import cn from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -18,8 +19,6 @@ type ItemOption = {
 
 type Props = {
   item: any
-  currencyCode: string
-  points?: number
 }
 
 const CartItem: FC<Props> = ({ item, currencyCode, points }) => {
@@ -28,12 +27,15 @@ const CartItem: FC<Props> = ({ item, currencyCode, points }) => {
     baseAmount: item.extended_list_price,
     currencyCode,
   })
+  const { items } = useCart()
+
+  console.log('item, items', item, items)
   const updateItem = useUpdateItem(item)
   const removeItem = useRemoveItem()
   const [quantity, setQuantity] = useState(item.quantity)
   const [removing, setRemoving] = useState(false)
   const updateQuantity = async (val: number) => {
-    await updateItem({ quantity: val })
+    // await updateItem({ quantity: val })
   }
   const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)

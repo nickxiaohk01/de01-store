@@ -39,9 +39,7 @@ const ProductView: FC<Props> = ({ product }) => {
   })
   const pointCashRatio = 10
   const defaultPrice = product!.prices!.price!.value
-  const priceWithPoints = product!.prices!.retailPrice
-    ? product!.prices!.retailPrice!.value
-    : null
+  const priceWithPoints = defaultPrice - 10
   const points = (defaultPrice - priceWithPoints) * pointCashRatio
   const fullInPoints = defaultPrice * pointCashRatio
   const variant = getCurrentVariant(product, choices)
@@ -56,11 +54,19 @@ const ProductView: FC<Props> = ({ product }) => {
         addItemsToCart({
           name: product.name,
           productId: product.entityId,
-          type: choices,
+          choices: choices,
           price: defaultPrice,
           imageUrl: product.images.edges[0].node.urlOriginal,
           amount: 1,
         })
+      console.log({
+        name: product.name,
+        productId: product.entityId,
+        choices: choices,
+        price: defaultPrice,
+        imageUrl: product.images.edges[0].node.urlOriginal,
+        amount: 1,
+      })
       openSidebar()
       setLoading(false)
     } catch (err) {
