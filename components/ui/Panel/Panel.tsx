@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './panel.module.css'
+import s from './Panel.module.css'
 
 type Props = {
   body: JSX.Element
