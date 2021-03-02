@@ -22,7 +22,13 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
-  const cartItems = JSON.parse(localStorage.getItem('demo-store') || '')
+  const cachedItems = localStorage.getItem('demo-store')
+  let cartItems = {
+    items: [],
+  }
+  if (cachedItems) {
+    cartItems = JSON.parse(cachedItems)
+  }
   const cartItemsCount = cartItems ? cartItems.items.length : 0
   return (
     <nav className={cn(s.root, className)}>
