@@ -1,7 +1,7 @@
 .body {
   flex-basis: 66.67%;
 
-  @media (max-width: 990px) {
+  @media (max-width: 575px) {
     flex-basis: 100%;
   }
 }
@@ -10,12 +10,16 @@
   flex-basis: 33.33%;
   padding-left: 40px;
 
-  @media (max-width: 990px) {
+  @media (max-width: 575px) {
     flex-basis: 100%;
-    padding-bottom: 20px;
+    padding: 0px;
   }
 }
 
 .actionContainer {
   padding: 24px;
+  @media (max-width: 575px) {
+    flex-basis: 100%;
+    padding: 10px 0px 0px;
+  }
 }

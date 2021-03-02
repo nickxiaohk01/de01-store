@@ -4,6 +4,10 @@
 
 .paymentOptContainer {
   display: flex;
+
+  @media (max-width: 575px) {
+    flex-direction: column;
+  }
 }
 
 .paymentLabel {
