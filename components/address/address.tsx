@@ -5,7 +5,7 @@ import ProvinceInput from './ProvinceField'
 
 type Props = {
   name: string
-  onChange: Function
+  onChange?: Function
 }
 
 const Address: React.FC<Props> = (props: Props) => {
@@ -22,7 +22,7 @@ const Address: React.FC<Props> = (props: Props) => {
     stateOrProvinceCode: '',
     postalCode: '',
   })
-  const onChangeHandler = (field, value) => {
+  const onChangeHandler = (field: string, value: string) => {
     setMockAddress({ ...mockAddress, [field]: value })
   }
   return (
@@ -96,7 +96,7 @@ const Address: React.FC<Props> = (props: Props) => {
           options={this.props.countries}
           width={'full'}
         /> */}
-      <ProvinceInput
+      {/* <ProvinceInput
         name={name}
         stateOrProvince={mockAddress.stateOrProvince}
         stateOrProvinceCode={mockAddress.stateOrProvinceCode}
@@ -106,7 +106,7 @@ const Address: React.FC<Props> = (props: Props) => {
         onCodeChange={({ target }) =>
           onChangeHandler('stateOrProvinceCode', target.value)
         }
-      />
+      /> */}
 
       <TextInput
         id={`${name}PostalCode`}

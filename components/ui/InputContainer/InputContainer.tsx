@@ -2,7 +2,16 @@ import React from 'react'
 import classNames from 'classnames'
 import s from './InputContainer.module.css'
 
-export default class InputContainer extends React.PureComponent {
+type Props = {
+  id: string
+  label: string
+  width: string
+  inline?: string
+  helpText?: string
+  body: JSX.Element
+}
+
+export default class InputContainer extends React.PureComponent<Props> {
   render() {
     return (
       <div

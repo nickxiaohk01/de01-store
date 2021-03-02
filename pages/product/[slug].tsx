@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type {
   GetStaticPathsContext,
   GetStaticPropsContext,
@@ -6,6 +7,7 @@ import type {
 import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
+import type { ProductNode } from '@framework/api/operations/get-product'
 
 // Data
 import { getConfig } from '@framework/api'
@@ -20,7 +22,9 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ slug: string }>) {
   const config = getConfig({ locale })
   const { pages } = await getAllPages({ config, preview })
-  const { product } = await getProduct({ slug: params!.slug })
+  const { product } = await getProduct({
+    slug: params!.slug,
+  })
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
   }

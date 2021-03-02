@@ -1,7 +1,13 @@
 import React from 'react'
 import s from './section.module.css'
 
-class Section extends React.PureComponent {
+type Props = {
+  header: string
+  subHeader: string
+  body: JSX.Element
+}
+
+class Section extends React.PureComponent<Props> {
   render() {
     return (
       <div className={s.section}>

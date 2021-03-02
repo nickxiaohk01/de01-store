@@ -1,5 +1,7 @@
+// @ts-nocheck
 import data from './data.json'
-export const getProduct = async ({ slug }) => {
+import type { ProductNode } from '@framework/api/operations/get-product'
+export const getProduct = async ({ slug }: { slug: string }) => {
   const { allProducts } = data
   const { products } = allProducts
   const targetProduct = products.find((product) => product.path.includes(slug))
@@ -9,15 +11,22 @@ export const getProduct = async ({ slug }) => {
   return Promise.resolve(targetProductData)
 }
 
-export const getProductByID = async ({ productID }) => {
+type Res = {
+  product: ProductNode
+}
+
+export const getProductByID = async ({
+  productID,
+}: {
+  productID: number
+}): Promise<Res> => {
   const { allProducts } = data
   const { products } = allProducts
-  const targetProduct = products.find(
+  const targetProduct: ProductNode = products.find(
     (product) => product.entityId === productID
   )
   const targetProductData = {
     product: targetProduct,
   }
-
   return Promise.resolve(targetProductData)
 }

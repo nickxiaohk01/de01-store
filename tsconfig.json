@@ -29,7 +29,9 @@
       "@context": ["context"],
       "@context/*": ["context/*"],
       "@proxy": ["proxy"],
-      "@proxy/*": ["proxy/*"]
+      "@proxy/*": ["proxy/*"],
+      "@constants": ["constants"],
+      "@constants/*": ["constants/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],

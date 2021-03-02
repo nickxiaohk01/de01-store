@@ -7,10 +7,12 @@ type Props = {
   id: string
   label: string
   value: string
-  onChange: Function
+  onChange: any
   width: string
+  placeholder?: string
   optional?: boolean
 }
+
 export default class TextInput extends React.PureComponent<Props> {
   render() {
     return (

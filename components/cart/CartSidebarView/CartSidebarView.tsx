@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import { UserNav } from '@components/common'
+import { UserNav, Points } from '@components/common'
 import { ButtonLink } from '@components/ui'
 import { formatMoney } from 'accounting'
 import { Bag, Cross, Check } from '@components/icons'
@@ -13,7 +13,7 @@ import s from './CartSidebarView.module.css'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
-  const { items: cartItems, subtotal } = useCartFE()
+  const { items: cartItems, subtotal, points } = useCartFE()
   const { data, isEmpty } = useCart()
   const { price: subTotal } = usePrice(
     data && {
@@ -30,7 +30,7 @@ const CartSidebarView: FC = () => {
   const handleClose = () => closeSidebar()
 
   const items = data?.line_items.physical_items ?? []
-
+  console.log(items)
   const error = null
   const success = null
 
@@ -97,14 +97,16 @@ const CartSidebarView: FC = () => {
               My Cart
             </h2>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
-              {items.map((item: any) => {
-                console.log(item.prices)
+              {items.map((item: any, index) => {
+                const existed =
+                  cartItems &&
+                  cartItems.find(
+                    (cartItem) => cartItem.productId === item.product_id
+                  )
                 return (
-                  <CartItem
-                    key={item.id}
-                    item={item}
-                    currencyCode={data?.currency.code!}
-                  />
+                  existed && (
+                    <CartItem key={item.id} item={item} currencyCode={'USD'} />
+                  )
                 )
               })}
             </ul>
@@ -117,6 +119,12 @@ const CartSidebarView: FC = () => {
                   <span>Subtotal</span>
                   <span>{formatMoney(subtotal)}</span>
                 </li>
+                {points !== 0 && (
+                  <li className="flex justify-between py-1">
+                    <span>O1 Points</span>
+                    <Points points={points} />
+                  </li>
+                )}
                 <li className="flex justify-between py-1">
                   <span>Taxes</span>
                   <span>Calculated at checkout</span>
@@ -128,7 +136,15 @@ const CartSidebarView: FC = () => {
               </ul>
               <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
                 <span>Total</span>
-                <span>{formatMoney(subtotal)}</span>
+                <span>
+                  {`${formatMoney(subtotal)}`}
+                  {points && (
+                    <span>
+                      {' '}
+                      + <Points points={points} />
+                    </span>
+                  )}
+                </span>
               </div>
             </div>
             <ButtonLink href="/checkout" width="100%">

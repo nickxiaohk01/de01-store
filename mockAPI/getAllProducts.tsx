@@ -1,5 +1,5 @@
 import data from './data.json'
-export const getAllProductsMock = async ({ type }) => {
+export const getAllProductsMock = async ({ type }: { type: string }) => {
   const { featuredProducts, bestSellingProducts, newestProducts } = data
   switch (type) {
     case 'featuredProducts': {

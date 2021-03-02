@@ -1,7 +1,5 @@
-import Reac, { useState } from 'react'
+import React, { useState } from 'react'
 import { formatMoney } from 'accounting'
-import { tabbable } from 'tabbable'
-import { createCheckoutService } from '@bigcommerce/checkout-sdk'
 import { Panel } from '@components/ui'
 import { useCart } from '@context'
 import { v4 as uuidv4 } from 'uuid'
@@ -10,7 +8,7 @@ import { Shipping } from '@components/shipping'
 import { SubmitButton } from '@components/submitButton'
 import { LoadingState } from '@components/loadingState'
 import { CartSummary } from '@components/cart'
-import { Layout } from './Layout'
+import { Layout } from '@components/ui'
 import s from './checkout.module.css'
 
 export const isNotNil = R.pipe(R.isNil, R.not)
@@ -20,26 +18,31 @@ type Props = {
   checkoutMethod: Function
 }
 const Checkout: React.FC<Props> = (props) => {
-  const { items, subtotal } = useCart()
+  const { items, subtotal, points } = useCart()
   const { checkoutMethod } = props
   const [merchantTranId, setMerchantTranId] = useState(uuidv4())
   const [idempotencyKey, setIdempotencyKey] = useState(uuidv4())
+
   const mockPaymentData = {
     merchantAccountId: 'wallet_test_merchant1',
-    paymentCompleteRedirectUrl: 'http://localhost:8080/fake/2.3/pay',
+    paymentCompleteRedirectUrl: 'http://localhost:3001/success',
     callbackUrl:
       'https://fake-partner-backend.com/api-to-receive-wallet-payment-result-callback',
     mPayOption: { deeplinkBackToApp: 'hk01uat://' },
     paymentMethodWhitelist: [],
     credit: { amount: subtotal * 100 },
+    point: {},
     stripeOption: { isCapture: true },
     merchantTranId: '8ee13067-820a-4dfe-87bb-8fbcb022f1e0',
+  }
+  if (points) {
+    mockPaymentData['point'] = { amount: points, toUnionId: '1000800' }
   }
 
   if (!items) {
     return <Layout body={<LoadingState />} />
   }
-  const SubmitOrder = async (data) => {
+  const SubmitOrder = async (data: any) => {
     try {
       return await checkoutMethod(data)
     } catch (e) {
@@ -47,7 +50,7 @@ const Checkout: React.FC<Props> = (props) => {
     }
   }
 
-  const SubmitHandler = async (e) => {
+  const SubmitHandler = async (e: React.FormEvent<any>) => {
     e.preventDefault()
     const response = await SubmitOrder({
       data: filterNotNil(mockPaymentData),
@@ -56,7 +59,6 @@ const Checkout: React.FC<Props> = (props) => {
     })
     window.location.assign(response.data.paymentEntryUrl)
   }
-  const isPlacingOrder = () => {}
   return (
     <Layout
       body={
@@ -65,16 +67,9 @@ const Checkout: React.FC<Props> = (props) => {
             <Panel
               body={
                 <form onSubmit={(event) => SubmitHandler(event)}>
-                  <Shipping customer={{}} consignments={{}} cart={items} />
+                  <Shipping />
                   <div className={s.actionContainer}>
-                    <SubmitButton
-                      label={
-                        isPlacingOrder()
-                          ? 'Placing your order...'
-                          : `Pay ${formatMoney(subtotal)}`
-                      }
-                      isLoading={isPlacingOrder()}
-                    />
+                    <SubmitButton label={`Pay Now`} />
                   </div>
                 </form>
               }

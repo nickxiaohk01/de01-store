@@ -1,7 +1,14 @@
 import React from 'react'
+import { Points } from '@components/common'
 import s from './ItemLine.module.css'
 
-export default class ItemLine extends React.PureComponent {
+type Props = {
+  label: string
+  price: string | JSX.Element
+  point?: number
+  imageUrl?: string
+}
+export default class ItemLine extends React.PureComponent<Props> {
   render() {
     return (
       <div className={s.container}>
@@ -14,8 +21,14 @@ export default class ItemLine extends React.PureComponent {
             <div> {this.props.label} </div>
           </div>
         </div>
-
-        <div className={s.amount}>{this.props.amount}</div>
+        <div className={s.priceContainer}>
+          <div className={s.amount}>{this.props.price}</div>
+          {this.props.point && (
+            <div className={s.amount}>
+              <Points points={this.props.point} />
+            </div>
+          )}
+        </div>
       </div>
     )
   }

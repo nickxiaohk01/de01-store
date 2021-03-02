@@ -2,3 +2,13 @@
   color: #0033e8;
   user-select: none;
 }
+
+.pointContainer {
+  display: inline-block;
+}
+
+.pointIcon {
+  display: inline-block;
+  vertical-align: text-bottom;
+  margin: 0 2px;
+}

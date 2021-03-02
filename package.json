@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "analyze": "BUNDLE_ANALYZE=both yarn build",
     "find:unused": "next-unused",
@@ -39,6 +40,9 @@
       ],
       "@proxy/*": [
         "proxy/*"
+      ],
+      "@constants/*": [
+        "constants/*"
       ]
     },
     "debug": true,

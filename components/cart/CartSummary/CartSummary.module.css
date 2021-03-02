@@ -45,11 +45,11 @@
 .grandTotalLabel {
   align-self: center;
   flex-grow: 1;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .grandTotalAmount {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
 }

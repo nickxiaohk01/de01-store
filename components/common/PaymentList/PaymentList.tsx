@@ -1,9 +1,9 @@
 import React, { FC, useState, useCallback } from 'react'
 import cn from 'classnames'
-import s from './PaymentList.module.css'
 import { Radio } from '@components/ui'
+import { PAYMENT_METHODS } from '@constants'
 import { Points } from '@components/common'
-import { NumberFieldOption } from '../../../framework/bigcommerce/schema'
+import s from './PaymentList.module.css'
 
 export interface Props {
   price: number
@@ -27,11 +27,8 @@ const PaymentList: FC<Props> = (props) => {
     onSelected,
     defaultOption,
   } = props
-  const PAYMENT_CASH = 'PAYMENT_CASH'
-  const PAYMENT_CASH_POINT = 'PAYMENT_CASH_POINT'
-  const PAYMENT_POINT = 'PAYMENT_POINT'
+  const { PAYMENT_CASH, PAYMENT_CASH_POINT, PAYMENT_POINT } = PAYMENT_METHODS
   const [option, setOption] = useState(defaultOption)
-
   const onSelectedHandler = useCallback(
     (paymentType) => () => {
       setOption(paymentType)

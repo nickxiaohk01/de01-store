@@ -1,7 +1,11 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import s from './panel.module.css'
 
-class Panel extends PureComponent {
+type Props = {
+  body: JSX.Element
+}
+
+class Panel extends React.PureComponent<Props> {
   render() {
     return <div className={s.container}>{this.props.body}</div>
   }

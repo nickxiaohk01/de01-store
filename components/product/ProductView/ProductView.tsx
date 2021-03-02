@@ -2,13 +2,11 @@ import { FC, useState, useCallback } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-
-import s from './ProductView.module.css'
 import { useUI, useCart } from '@context'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text, Radio } from '@components/ui'
 import { PaymentList } from '@components/common'
-
+import { PAYMENT_METHODS } from '@constants'
 import usePrice from '@framework/use-price'
 import useAddItem from '@framework/cart/use-add-item'
 import type { ProductNode } from '@framework/api/operations/get-product'
@@ -18,6 +16,7 @@ import {
   SelectedOptions,
 } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
+import s from './ProductView.module.css'
 
 interface Props {
   className?: string
@@ -26,12 +25,12 @@ interface Props {
 }
 
 const ProductView: FC<Props> = ({ product }) => {
+  const { PAYMENT_CASH } = PAYMENT_METHODS
   const addItem = useAddItem()
   const { openSidebar } = useUI()
   const { addItems: addItemsToCart } = useCart()
   const options = getProductOptions(product)
   const [loading, setLoading] = useState(false)
-  const PAYMENT_CASH = 'PAYMENT_CASH'
   const [choices, setChoices] = useState<SelectedOptions>({
     size: null,
     color: null,
@@ -56,17 +55,8 @@ const ProductView: FC<Props> = ({ product }) => {
           productId: product.entityId,
           choices: choices,
           price: defaultPrice,
-          imageUrl: product.images.edges[0].node.urlOriginal,
           amount: 1,
         })
-      console.log({
-        name: product.name,
-        productId: product.entityId,
-        choices: choices,
-        price: defaultPrice,
-        imageUrl: product.images.edges[0].node.urlOriginal,
-        amount: 1,
-      })
       openSidebar()
       setLoading(false)
     } catch (err) {

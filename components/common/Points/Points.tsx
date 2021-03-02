@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import s from './Points.module.css'
 import { Points as PointsIcon } from '@components/icons'
+import s from './Points.module.css'
 
 export interface Props {
   points: number
@@ -10,14 +10,8 @@ const Points: FC<Props> = (props) => {
   const { points } = props
 
   return (
-    <div>
-      <PointsIcon
-        style={{
-          display: 'inline-block',
-          verticalAlign: 'text-bottom',
-          margin: '0 2px',
-        }}
-      />
+    <div className={s.pointContainer}>
+      <PointsIcon className={s.pointIcon} />
       <span className={s.pointsText}>{formatNumber(points)}</span>
     </div>
   )

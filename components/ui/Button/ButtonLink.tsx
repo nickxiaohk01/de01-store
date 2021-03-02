@@ -3,7 +3,8 @@ import Link from 'next/link'
 import cn from 'classnames'
 import s from './Button.module.css'
 
-const ButtonLink = (props) => {
+type Props = { children: string; href: string; width: string }
+const ButtonLink = (props: Props) => {
   const rootClassName = cn(s.root, s.slim, s.fullWidth)
   return (
     <div className={rootClassName}>

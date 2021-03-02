@@ -1,7 +1,16 @@
 import React from 'react'
 import s from './RadioInput.module.css'
 
-class RadioInput extends React.PureComponent {
+type Props = {
+  name: string
+  value: string
+  checked: boolean
+  isLoading: boolean
+  onChange: any
+  label: string
+}
+
+class RadioInput extends React.PureComponent<Props> {
   render() {
     return (
       <label

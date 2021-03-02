@@ -1,0 +1,19 @@
+.lineItemContainer {
+  display: flex;
+  padding: 20px 0;
+}
+
+.lineItemLabel {
+  min-width: 160px;
+  height: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.lineItemContent {
+  width: 280px;
+}

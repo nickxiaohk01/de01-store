@@ -2,7 +2,17 @@ import React from 'react'
 import { InputContainer } from '@components/ui'
 import s from './Dropdown.module.css'
 
-export default class Dropdown extends React.PureComponent {
+type Props = {
+  id: string
+  inline: string
+  label: string
+  width: string
+  value: string
+  onChange: any
+  options: any
+}
+
+export default class Dropdown extends React.PureComponent<Props> {
   render() {
     return (
       <InputContainer
@@ -18,7 +28,7 @@ export default class Dropdown extends React.PureComponent {
             className={s.select}
           >
             <option value="" />
-            {this.props.options.map((option) => (
+            {this.props.options.map((option: any) => (
               <option key={option.code} value={option.code}>
                 {option.name}
               </option>

@@ -1,6 +1,7 @@
 .container {
   display: flex;
   padding-bottom: 12px;
+  justify-content: space-between;
 }
 
 .labelContainer {
@@ -23,4 +24,10 @@
 .amount {
   align-self: center;
   font-weight: 600;
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
 }
