@@ -13,7 +13,7 @@ import s from './CartSidebarView.module.css'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
-  const { items: cartItems, subtotal, points } = useCartFE()
+  const { items: cartItems, subtotal, points, readLocalStorage } = useCartFE()
   const { data, isEmpty } = useCart()
   const { price: subTotal } = usePrice(
     data && {
@@ -30,9 +30,12 @@ const CartSidebarView: FC = () => {
   const handleClose = () => closeSidebar()
 
   const items = data?.line_items.physical_items ?? []
-  console.log(items)
   const error = null
   const success = null
+
+  useEffect(() => {
+    readLocalStorage && readLocalStorage()
+  }, [])
 
   return (
     <div

@@ -92,6 +92,38 @@ const cartReducer = (
       return newState
     }
 
+    case 'REMOVE_ITEM': {
+      const { data } = action
+      const { productId } = data
+      const { items, subtotal, points } = state
+      const removedItem = items.find((item) => item.productId === productId)
+      const { choices } = removedItem
+      const filterdItems = items.filter((item) => item.productId !== productId)
+      let updateSubtotal = subtotal,
+        updatePoints = points
+
+      const {
+        PAYMENT_CASH,
+        PAYMENT_CASH_POINT,
+        PAYMENT_POINT,
+      } = PAYMENT_METHODS
+      if (choices.paymentType == PAYMENT_CASH_POINT) {
+        updateSubtotal = updateSubtotal + 10 - removedItem.price
+        updatePoints = updatePoints - 100
+      } else if (choices.paymentType == PAYMENT_POINT) {
+        updatePoints = updatePoints - removedItem.price * 10
+      } else {
+        updateSubtotal = updateSubtotal - removedItem.price
+      }
+
+      return {
+        ...state,
+        subtotal: updateSubtotal,
+        points: updatePoints,
+        items: filterdItems,
+      }
+    }
+
     case 'READ_LOCALSTORAGE': {
       const newState = localStorage.getItem('demo-store')
       return JSON.parse(newState || '')
@@ -114,12 +146,15 @@ export const CartProvider: FC = (props) => {
     imageUrl: string
     amount: number
   }) => dispatch({ type: 'ADD_ITEMS', data })
+  const removeItem = (data: { productId: string }) =>
+    dispatch({ type: 'REMOVE_ITEM', data })
   const readLocalStorage = () => dispatch({ type: 'READ_LOCALSTORAGE' })
   const value = useMemo(
     () => ({
       ...state,
       addItems,
       readLocalStorage,
+      removeItem,
     }),
     [state]
   )

@@ -3,20 +3,21 @@ import { formatMoney } from 'accounting'
 import { Panel } from '@components/ui'
 import { useCart } from '@context'
 import { v4 as uuidv4 } from 'uuid'
-import * as R from 'ramda'
 import { Shipping } from '@components/shipping'
 import { SubmitButton } from '@components/submitButton'
 import { LoadingState } from '@components/loadingState'
 import { CartSummary } from '@components/cart'
 import { Layout } from '@components/ui'
 import s from './checkout.module.css'
+import * as R from 'ramda'
+
+type Props = {
+  checkoutMethod: Function
+}
 
 export const isNotNil = R.pipe(R.isNil, R.not)
 
 export const filterNotNil = R.filter(isNotNil)
-type Props = {
-  checkoutMethod: Function
-}
 const Checkout: React.FC<Props> = (props) => {
   const { items, subtotal, points } = useCart()
   const { checkoutMethod } = props
