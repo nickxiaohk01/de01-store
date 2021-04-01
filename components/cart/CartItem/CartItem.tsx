@@ -11,6 +11,7 @@ import usePrice from '@framework/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
 import s from './CartItem.module.css'
+import removeItem from '../../../framework/bigcommerce/api/cart/handlers/remove-item'
 
 type ItemOption = {
   name: string
@@ -35,7 +36,7 @@ type Props = {
 }
 
 const CartItem: FC<Props> = ({ item, currencyCode }) => {
-  const { items } = useCart()
+  const { items, removeItem: removeItemFE } = useCart()
   const itemInCart =
     items &&
     items.find((curItem) => {
@@ -94,6 +95,7 @@ const CartItem: FC<Props> = ({ item, currencyCode }) => {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
       await removeItem({ id: item.id })
+      removeItemFE({ productId: item.product_id })
     } catch (error) {
       setRemoving(false)
     }
@@ -101,11 +103,11 @@ const CartItem: FC<Props> = ({ item, currencyCode }) => {
 
   useEffect(() => {
     // Reset the quantity state if the item.amount changes
-    if (item.amount !== Number(quantity)) {
-      setQuantity(Number(item.amount))
+    if (item.quantity !== Number(quantity)) {
+      setQuantity(Number(item.quantity))
     }
   }, [item.amount])
-  console.log('image item', item)
+
   return (
     <li
       className={cn('flex flex-row space-x-8 py-8', {
@@ -151,7 +153,7 @@ const CartItem: FC<Props> = ({ item, currencyCode }) => {
               max={99}
               min={0}
               className={s.quantity}
-              value={1}
+              value={quantity}
               onChange={handleQuantity}
               onBlur={handleBlur}
             />
