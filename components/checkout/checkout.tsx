@@ -17,13 +17,26 @@ export const filterNotNil = R.filter(isNotNil)
 type Props = {
   checkoutMethod: Function
 }
+
+type PaymentProps = {
+  merchantAccountId: String
+  paymentCompleteRedirectUrl: String
+  callbackUrl: String
+  mPayOption: Object
+  paymentMethodWhitelist: Array<String>
+  credit: Object
+  stripeOption: Object
+  merchantTranId: String
+  point?: Object
+}
+
 const Checkout: React.FC<Props> = (props) => {
   const { items, subtotal, points } = useCart()
   const { checkoutMethod } = props
   const [merchantTranId, setMerchantTranId] = useState(uuidv4())
   const [idempotencyKey, setIdempotencyKey] = useState(uuidv4())
 
-  const mockPaymentData = {
+  const mockPaymentData: PaymentProps = {
     merchantAccountId: 'wallet_test_merchant1',
     paymentCompleteRedirectUrl: 'https://de01-store.vercel.app/success',
     callbackUrl:
