@@ -32,7 +32,7 @@ const Checkout: React.FC<Props> = (props) => {
     paymentMethodWhitelist: [],
     credit: { amount: subtotal * 100 },
     stripeOption: { isCapture: true },
-    merchantTranId: '8ee13067-820a-4dfe-87bb-8fbcb022f1e0',
+    merchantTranId: merchantTranId,
     point: { amount: points, toUnionId: '1000800' },
   }
 
