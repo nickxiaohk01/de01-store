@@ -15,7 +15,7 @@ const config = {
     CLUSTER: 'ap1',
   },
   FAKE_PARTNER_SERVER_FE: {
-    PROXY_URL: 'http://localhost:8080',
+    PROXY_URL: 'https://fake-partner-dev.hk01wallet.com',
     APP_ID: 'e16f95856e310a634c33048fd80813d7',
     TIMEOUT: 20000,
   },

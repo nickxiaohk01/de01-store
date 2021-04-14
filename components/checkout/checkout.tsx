@@ -25,18 +25,15 @@ const Checkout: React.FC<Props> = (props) => {
 
   const mockPaymentData = {
     merchantAccountId: 'wallet_test_merchant1',
-    paymentCompleteRedirectUrl: 'http://localhost:3001/success',
+    paymentCompleteRedirectUrl: 'https://de01-store.vercel.app/success',
     callbackUrl:
       'https://fake-partner-backend.com/api-to-receive-wallet-payment-result-callback',
     mPayOption: { deeplinkBackToApp: 'hk01uat://' },
     paymentMethodWhitelist: [],
     credit: { amount: subtotal * 100 },
-    point: {},
     stripeOption: { isCapture: true },
     merchantTranId: '8ee13067-820a-4dfe-87bb-8fbcb022f1e0',
-  }
-  if (points) {
-    mockPaymentData['point'] = { amount: points, toUnionId: '1000800' }
+    point: { amount: points, toUnionId: '1000800' },
   }
 
   if (!items) {
