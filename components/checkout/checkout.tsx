@@ -33,9 +33,10 @@ const Checkout: React.FC<Props> = (props) => {
     credit: { amount: subtotal * 100 },
     stripeOption: { isCapture: true },
     merchantTranId: merchantTranId,
-    point: { amount: points, toUnionId: '1000800' },
   }
-
+  if (points) {
+    mockPaymentData['point'] = { amount: points, toUnionId: '1000800' }
+  }
   if (!items) {
     return <Layout body={<LoadingState />} />
   }
