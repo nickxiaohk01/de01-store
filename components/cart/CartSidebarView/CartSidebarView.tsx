@@ -13,7 +13,9 @@ import s from './CartSidebarView.module.css'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
-  const { items: cartItems, subtotal, points } = useCartFE()
+  const { items: cartItems, subtotal, points } = JSON.parse(
+    localStorage.getItem('demo-store') || ''
+  )
   const { data, isEmpty } = useCart()
   const { price: subTotal } = usePrice(
     data && {
@@ -101,7 +103,7 @@ const CartSidebarView: FC = () => {
                 const existed =
                   cartItems &&
                   cartItems.find(
-                    (cartItem) => cartItem.productId === item.product_id
+                    (cartItem: any) => cartItem.productId === item.product_id
                   )
                 return (
                   existed && (

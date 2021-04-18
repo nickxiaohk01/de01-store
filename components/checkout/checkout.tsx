@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import { formatMoney } from 'accounting'
 import { Panel } from '@components/ui'
 import { useCart } from '@context'
@@ -31,7 +32,10 @@ type PaymentProps = {
 }
 
 const Checkout: React.FC<Props> = (props) => {
-  const { items, subtotal, points } = useCart()
+  const { items, subtotal, points } = JSON.parse(
+    localStorage.getItem('demo-store') || ''
+  )
+
   const { checkoutMethod } = props
   const [merchantTranId, setMerchantTranId] = useState(uuidv4())
   const [idempotencyKey, setIdempotencyKey] = useState(uuidv4())
@@ -95,4 +99,6 @@ const Checkout: React.FC<Props> = (props) => {
   )
 }
 
-export default Checkout
+export default dynamic(() => Promise.resolve(Checkout), {
+  ssr: false,
+})

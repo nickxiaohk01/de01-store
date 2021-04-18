@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import dynamic from 'next/dynamic'
 import { getProductByID } from '@mockAPI/getProduct'
 import { PAYMENT_METHODS } from '@constants'
 import { Points } from '@components/common'
@@ -8,7 +9,9 @@ import s from './CartSummary.module.css'
 import { formatMoney } from 'accounting'
 
 const CartSummary: FC = (props) => {
-  const { items, subtotal, points } = useCart()
+  const { items, subtotal, points } = JSON.parse(
+    localStorage.getItem('demo-store') || ''
+  )
   const { PAYMENT_CASH, PAYMENT_CASH_POINT, PAYMENT_POINT } = PAYMENT_METHODS
   const getExactPrice = (price: number, paymentType: string) => {
     switch (paymentType) {
@@ -49,7 +52,7 @@ const CartSummary: FC = (props) => {
           <div className={s.cartHeader}>Your Order</div>
         </div>
         {items &&
-          items.map((item) => {
+          items.map((item: any) => {
             const { name, productId, choices, price, imageUrl, amount } = item
 
             return (
@@ -97,4 +100,6 @@ const CartSummary: FC = (props) => {
   )
 }
 
-export default CartSummary
+export default dynamic(() => Promise.resolve(CartSummary), {
+  ssr: false,
+})
