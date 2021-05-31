@@ -15,22 +15,22 @@ const config = {
     CLUSTER: 'ap1',
   },
   FAKE_PARTNER_SERVER_FE: {
-    PROXY_URL: 'https://fake-partner-dev.hk01wallet.com',
-    APP_ID: 'e16f95856e310a634c33048fd80813d7',
+    PROXY_URL: 'https://fake-partner-staging.hk01wallet.com',
+    APP_ID: 'fda8ca6e-f58e-4ec2-b37e-526dbc0b0012',
     TIMEOUT: 20000,
   },
   DEFAULT_FAKE_PARTNERS: [
     {
-      CLIENT_ID: 'ef1520f5-6ebf-4baa-ace7-8e0553023b56',
-      DEFAULT_MERCHANT_ACCOUNT_ID: 'emmashop1',
+      CLIENT_ID: '2',
+      DEFAULT_MERCHANT_ACCOUNT_ID: 'wallet_test_merchant1',
     },
     {
-      CLIENT_ID: 'c056a34c-adb3-42f0-a4a9-9cc80e1e45fb',
-      DEFAULT_MERCHANT_ACCOUNT_ID: 'walletTestMerchant2',
+      CLIENT_ID: '3',
+      DEFAULT_MERCHANT_ACCOUNT_ID: 'wallet_test_merchant2',
     },
     {
-      CLIENT_ID: '92644bb8-5e98-40ae-bfe0-19e01d258809',
-      DEFAULT_MERCHANT_ACCOUNT_ID: 'walletTestMerchant3',
+      CLIENT_ID: '4',
+      DEFAULT_MERCHANT_ACCOUNT_ID: 'wallet_test_merchant3',
     },
   ],
   PROXY_URL: 'http://localhost:3001',
