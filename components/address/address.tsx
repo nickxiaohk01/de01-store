@@ -16,7 +16,7 @@ const Address: React.FC<Props> = (props: Props) => {
     phone: '',
     address1: '',
     address2: '',
-    city: '',
+    city: 'Hong Kong',
     countryCode: '',
     stateOrProvince: '',
     stateOrProvinceCode: '',

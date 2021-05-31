@@ -43,7 +43,7 @@ const Success: React.FC<Props> = (props) => {
                     when your order is ready.
                   </div>
                   <div className={s.successContent}>
-                    <LineItem label="Cusomer" content="NickXiao@hk01.com" />
+                    <LineItem label="Cusomer" content="kennethyiu@hk01.com" />
                     <LineItem
                       label="Shipping"
                       content="Nick

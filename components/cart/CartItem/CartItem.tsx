@@ -35,7 +35,7 @@ type Props = {
 }
 
 const CartItem: FC<Props> = ({ item, currencyCode }) => {
-  const { items } = useCart()
+  const { items, readLocalStorage } = useCart()
   const itemInCart =
     items &&
     items.find((curItem) => {
@@ -100,12 +100,15 @@ const CartItem: FC<Props> = ({ item, currencyCode }) => {
   }
 
   useEffect(() => {
+    readLocalStorage && readLocalStorage()
+  }, [])
+  useEffect(() => {
     // Reset the quantity state if the item.amount changes
     if (item.amount !== Number(quantity)) {
       setQuantity(Number(item.amount))
     }
   }, [item.amount])
-  console.log('image item', item)
+
   return (
     <li
       className={cn('flex flex-row space-x-8 py-8', {

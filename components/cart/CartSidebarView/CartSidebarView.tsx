@@ -32,7 +32,7 @@ const CartSidebarView: FC = () => {
   const handleClose = () => closeSidebar()
 
   const items = data?.line_items.physical_items ?? []
-  console.log(items)
+
   const error = null
   const success = null
 
