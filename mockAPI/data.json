@@ -203,7 +203,7 @@
           "brand": { "entityId": 37 },
           "description": "<p>This t-shirt is a must-have in your wardrobe, combining the timeless fit of a classic tee with an intricate embroidered detail that brings the shirt to a whole new level. It's soft and durable, so be prepared to have a new favorite t-shirt!<br /><br /></p>",
           "prices": {
-            "price": { "value": 60, "currencyCode": "USD" },
+            "price": { "value": 110, "currencyCode": "USD" },
             "salePrice": null,
             "retailPrice": null
           },
@@ -2332,7 +2332,7 @@
           "brand": { "entityId": 37 },
           "description": "<p>This t-shirt is a must-have in your wardrobe, combining the timeless fit of a classic tee with an intricate embroidered detail that brings the shirt to a whole new level. It's soft and durable, so be prepared to have a new favorite t-shirt!<br /><br /></p>",
           "prices": {
-            "price": { "value": 60, "currencyCode": "USD" },
+            "price": { "value": 110, "currencyCode": "USD" },
             "salePrice": null,
             "retailPrice": null
           },
@@ -4319,7 +4319,7 @@
         "brand": { "entityId": 37 },
         "description": "<p>This t-shirt is a must-have in your wardrobe, combining the timeless fit of a classic tee with an intricate embroidered detail that brings the shirt to a whole new level. It's soft and durable, so be prepared to have a new favorite t-shirt!<br /><br /></p>",
         "prices": {
-          "price": { "value": 60, "currencyCode": "USD" },
+          "price": { "value": 110, "currencyCode": "USD" },
           "salePrice": null,
           "retailPrice": null
         },
@@ -4376,7 +4376,7 @@
                 "entityId": 114,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
@@ -4418,7 +4418,7 @@
                 "entityId": 121,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
@@ -4460,7 +4460,7 @@
                 "entityId": 124,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
@@ -4502,7 +4502,7 @@
                 "entityId": 128,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
@@ -4544,7 +4544,7 @@
                 "entityId": 132,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
@@ -4586,7 +4586,7 @@
                 "entityId": 138,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
@@ -4628,7 +4628,7 @@
                 "entityId": 144,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
@@ -4670,7 +4670,7 @@
                 "entityId": 148,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
@@ -4712,7 +4712,7 @@
                 "entityId": 153,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
@@ -4754,7 +4754,7 @@
                 "entityId": 158,
                 "defaultImage": null,
                 "prices": {
-                  "price": { "value": 60, "currencyCode": "USD" },
+                  "price": { "value": 110, "currencyCode": "USD" },
                   "salePrice": null,
                   "retailPrice": null
                 },
