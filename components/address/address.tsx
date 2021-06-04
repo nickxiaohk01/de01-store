@@ -79,7 +79,7 @@ const Address: React.FC<Props> = (props: Props) => {
       />
       <TextInput
         id={`${name}City`}
-        label={'City'}
+        label={'Country/District'}
         value={mockAddress.city}
         onChange={({ target }: { target: HTMLInputElement }) =>
           onChangeHandler('city', target.value)
