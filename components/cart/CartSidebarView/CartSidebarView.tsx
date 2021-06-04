@@ -32,6 +32,7 @@ const CartSidebarView: FC = () => {
   const handleClose = () => closeSidebar()
 
   const items = data?.line_items.physical_items ?? []
+  const renderedItem: string[] = []
 
   const error = null
   const success = null
@@ -100,11 +101,13 @@ const CartSidebarView: FC = () => {
             </h2>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
               {items.map((item: any, index) => {
+                if (renderedItem.includes(item.product_id)) return
                 const existed =
                   cartItems &&
                   cartItems.find(
                     (cartItem: any) => cartItem.productId === item.product_id
                   )
+                if (existed) renderedItem.push(item.product_id)
                 return (
                   existed && (
                     <CartItem key={item.id} item={item} currencyCode={'USD'} />
