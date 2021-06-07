@@ -166,7 +166,7 @@ const CartItem: FC<Props> = ({ item, currencyCode }) => {
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
         <span>
-          {formatMoney(priceCharged)}
+          {`HK${formatMoney(priceCharged)}`}
           {paymentType !== PAYMENT_CASH && (
             <span>
               {' '}

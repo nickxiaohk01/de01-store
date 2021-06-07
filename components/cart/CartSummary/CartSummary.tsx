@@ -59,9 +59,9 @@ const CartSummary: FC = (props) => {
               <ItemLine
                 key={productId}
                 label={`${amount} x ${name}`}
-                price={formatMoney(
+                price={`HK${formatMoney(
                   getExactPrice(price, choices && choices.paymentType)
-                )}
+                )}`}
                 point={getExactPoints(price, choices && choices.paymentType)}
                 imageUrl={imageUrl}
               />
@@ -70,7 +70,7 @@ const CartSummary: FC = (props) => {
       </div>
 
       <div className={s.orderSummaryContainer}>
-        <ItemLine label={'Subtotal'} price={formatMoney(subtotal)} />
+        <ItemLine label={'Subtotal'} price={`HK${formatMoney(subtotal)}`} />
 
         {points !== 0 ? (
           <ItemLine label={'01 Point'} price={<Points points={points} />} />
@@ -78,14 +78,14 @@ const CartSummary: FC = (props) => {
           ''
         )}
 
-        <ItemLine label={'Shipping'} price={formatMoney(0)} />
+        <ItemLine label={'Shipping'} price={`HK${formatMoney(0)}`} />
 
-        <ItemLine label={'Tax'} price={formatMoney(0)} />
+        <ItemLine label={'Tax'} price={`HK${formatMoney(0)}`} />
         <div className={s.grandTotalContainer}>
           <div className={s.grandTotalLabel}>Total</div>
 
           <div className={s.grandTotalAmount}>
-            {formatMoney(subtotal)}
+            {`HK${formatMoney(subtotal)}`}
             {points ? (
               <span>
                 + <Points points={points} />

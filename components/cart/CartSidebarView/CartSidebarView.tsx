@@ -122,7 +122,7 @@ const CartSidebarView: FC = () => {
               <ul className="py-3">
                 <li className="flex justify-between py-1">
                   <span>Subtotal</span>
-                  <span>{formatMoney(subtotal)}</span>
+                  <span>{`HK${formatMoney(subtotal)}`}</span>
                 </li>
                 {points !== 0 && (
                   <li className="flex justify-between py-1">
@@ -142,7 +142,7 @@ const CartSidebarView: FC = () => {
               <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
                 <span>Total</span>
                 <span>
-                  {`${formatMoney(subtotal)}`}
+                  {`HK${formatMoney(subtotal)}`}
                   {points && (
                     <span>
                       {' '}

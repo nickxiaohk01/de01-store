@@ -52,14 +52,14 @@ const PaymentList: FC<Props> = (props) => {
           className={s.paymentOption}
           selected={option === PAYMENT_CASH}
           onClick={onSelectedHandler(PAYMENT_CASH)}
-        >{`$${price.toFixed(2)}`}</Radio>
+        >{`HK$${price.toFixed(2)}`}</Radio>
         {priceWithPoints && (
           <Radio
             className={s.paymentOption}
             selected={option === PAYMENT_CASH_POINT}
             onClick={onSelectedHandler(PAYMENT_CASH_POINT)}
           >
-            {`$${priceWithPoints.toFixed(1)} + `}
+            {`HK$${priceWithPoints.toFixed(1)} + `}
             <Points points={(price - priceWithPoints) * 10} />
           </Radio>
         )}
