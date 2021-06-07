@@ -110,7 +110,7 @@ const CartSidebarView: FC = () => {
                 if (existed) renderedItem.push(item.product_id)
                 return (
                   existed && (
-                    <CartItem key={item.id} item={item} currencyCode={'USD'} />
+                    <CartItem key={item.id} item={item} currencyCode={'HKD'} />
                   )
                 )
               })}
